@@ -43,7 +43,12 @@ dependencies:
   another_flushbar: ^1.12.30
   fluttertoast: ^8.2.2
   google_fonts: ^5.1.0
-  animated_appbar: ^2.1.5
+  provider: ^6.0.5
+  emoji_picker_flutter: ^1.6.1
+  shared_preferences: ^2.2.0
+  socket_io_client: ^2.0.3+1
+  pin_code_fields: ^8.0.1
+  modal_progress_hud_nsn: ^0.4.0
 
 dev_dependencies:
   flutter_test:

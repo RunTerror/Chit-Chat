@@ -2,7 +2,10 @@ import 'package:camera/camera.dart';
 import 'package:chit_chat/utils/error_widget.dart';
 import 'package:chit_chat/utils/route_names.dart';
 import 'package:chit_chat/utils/routes.dart';
+import 'package:chit_chat/view_model/landing_controller.dart';
+import 'package:chit_chat/view_model/obscure_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
  List<CameraDescription> cameras=[];
 Future<void> main() async {
@@ -21,9 +24,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MultiProvider(providers: [
+      ChangeNotifierProvider(create: (context)=> ObscureController()),
+      ChangeNotifierProvider(create: (context)=> LandingProvider())
+    ], child: MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
       theme: ThemeData(
         listTileTheme:const ListTileThemeData(tileColor: Colors.white),
         primaryColor: const Color(0xff1c70fa),
@@ -32,6 +37,6 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: RouteNames.landingScreen,
       onGenerateRoute: Routes.generateRoute,
-    );
+    ));
   }
 }

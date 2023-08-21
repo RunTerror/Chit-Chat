@@ -14,12 +14,12 @@ class ChatScreen extends StatelessWidget {
     var h = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: (){
+      floatingActionButton: FloatingActionButton(backgroundColor: theme.primaryColor,onPressed: (){
         Navigator.pushNamed(context, RouteNames.searchScreen);
-      }, child:const Icon(Icons.message)),
+      }, child:const Icon(CupertinoIcons.chat_bubble, color: Colors.white,)),
       body: Stack(
         children: [
-          CustomContainer(borderRadius: 0, color: Colors.white, h: h, w: w),
+          CustomContainer(child: null,borderRadius: 0, color: Colors.white, h: h, w: w),
           ListView.builder(itemBuilder: (context, index) {
             return Container(
                 margin:const EdgeInsets.symmetric(vertical: 10),

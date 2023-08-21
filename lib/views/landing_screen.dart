@@ -18,7 +18,7 @@ class _LandingScreenState extends State<LandingScreen> {
 
 
   navigate(){
-    Navigator.of(context).pushNamed(RouteNames.chitScreen);
+    Navigator.of(context).pushReplacementNamed(RouteNames.loginScreen);
   }
 
   @override
@@ -30,7 +30,7 @@ class _LandingScreenState extends State<LandingScreen> {
       child: Scaffold(
           body: Stack(
               children: [
-                CustomContainer(borderRadius: 0, color: theme.primaryColor, h: h, w: w),
+                CustomContainer(child: null,borderRadius: 0, color: theme.primaryColor, h: h, w: w),
                 Positioned(
                   top: h-h/2.5,
                   child: Container(

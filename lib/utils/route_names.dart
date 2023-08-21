@@ -1,5 +1,3 @@
-import 'package:chit_chat/views/chat_screen.dart';
-
 class RouteNames {
   static const homeScreen='home-screen';
   static const landingScreen='landing-screen';
@@ -8,4 +6,7 @@ class RouteNames {
   static const chatRoom='chat-room';
   static const chatScreen='chat-screen';
   static const searchScreen='search-screen';
+  static const loginScreen='login-screen';
+  static const signupScreen='signup-screen';
+  static const verificationScreen='verification-screen';
 }

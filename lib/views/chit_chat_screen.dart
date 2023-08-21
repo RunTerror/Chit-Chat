@@ -1,9 +1,12 @@
-import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
+import 'package:chit_chat/view_model/landing_controller.dart';
+import 'package:chit_chat/views/call_screen.dart';
 import 'package:chit_chat/views/chat_screen.dart';
 import 'package:chit_chat/views/profile_screen.dart';
 import 'package:chit_chat/views/status_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class ChitChatScreen extends StatefulWidget {
   const ChitChatScreen({super.key});
@@ -13,61 +16,112 @@ class ChitChatScreen extends StatefulWidget {
 }
 
 class _ChitChatScreenState extends State<ChitChatScreen> {
-  final _controller = NotchBottomBarController(index: 0);
-  final _pageviewController = PageController(initialPage: 0);
-  final screens = const [ChatScreen(), StatusScreen(), ProfileScreen()];
+  final screens = const [StatusScreen(), ChatScreen(), CallScreen()];
+  bool check = false;
+  var index = 0;
+  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-        value: const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-        ),
-        child: Scaffold(
-            body: PageView(
-              physics: const NeverScrollableScrollPhysics(),
-              controller: _pageviewController,
-              children:
-                  List.generate(screens.length, (index) => screens[index]),
-            ),
-            extendBody: true,
-            bottomNavigationBar: AnimatedNotchBottomBar(
-                color: Colors.grey,
-                notchColor: theme.primaryColor,
-                notchBottomBarController: _controller,
-                bottomBarItems: const [
-                  BottomBarItem(
-                      inActiveItem: Icon(
-                        Icons.message_rounded,
-                        color: Colors.white,
-                      ),
-                      activeItem: Icon(
-                        Icons.message_rounded,
-                        color: Colors.white,
-                      )),
-                  BottomBarItem(
-                      inActiveItem: Icon(
-                        Icons.phone,
-                        color: Colors.white,
-                      ),
-                      activeItem: Icon(
-                        Icons.phone,
-                        color: Colors.white,
-                      )),
-                  BottomBarItem(
-                      inActiveItem: Icon(
-                        Icons.search,
-                        color: Colors.white,
-                      ),
-                      activeItem: Icon(
-                        Icons.search_sharp,
-                        color: Colors.white,
-                      )),
-                ],
-                durationInMilliSeconds: 500,
-                showShadow: false,
-                onTap: (value) {
-                  _controller.jumpTo(value);
-                })));
+    var w = MediaQuery.of(context).size.width;
+    var h = MediaQuery.of(context).size.height;
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+          body: TabBarView(children: screens),
+          appBar: PreferredSize(
+              preferredSize: Size.fromHeight(h / 7),
+              child: Consumer<LandingProvider>(
+                builder: (context, value, child) {
+                  return AppBar(
+                    leading: value.check == false
+                        ? null
+                        : IconButton(
+                            onPressed: () {
+                              value.toogleCheck();
+                            },
+                            icon: const Icon(
+                              CupertinoIcons.back,
+                              color: Colors.white,
+                              weight: 20,
+                            )),
+                    actions: [
+                      IconButton(
+                          onPressed: () {
+                            value.toogleCheck();
+                          },
+                          icon: const Icon(
+                            CupertinoIcons.search,
+                            color: Colors.white,
+                          )),
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            CupertinoIcons.camera,
+                            color: Colors.white,
+                          )),
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.more_vert,
+                            color: Colors.white,
+                          )),
+                    ],
+                    title: value.check == false
+                        ? Text(
+                            "  CHITCHAT",
+                            style: GoogleFonts.openSans(
+                                textStyle: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white)),
+                          )
+                        : TextField(
+                            controller: _controller,
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Search...',
+                                hintStyle: GoogleFonts.openSans(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600)),
+                          ),
+                    backgroundColor: theme.primaryColor,
+                    bottom: TabBar(
+                        indicatorWeight: 5,
+                        indicatorColor:
+                            const Color.fromARGB(255, 178, 173, 173),
+                        tabs: [
+                          Tab(
+                              child: Text(
+                            "Stories",
+                            style: GoogleFonts.openSans(
+                                textStyle: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white)),
+                          )),
+                          Tab(
+                              child: Text(
+                            "Chats",
+                            style: GoogleFonts.openSans(
+                                textStyle: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white)),
+                          )),
+                          Tab(
+                              child: Text(
+                            "Calls",
+                            style: GoogleFonts.openSans(
+                                textStyle: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white)),
+                          )),
+                        ]),
+                  );
+                },
+              ))),
+    );
   }
 }

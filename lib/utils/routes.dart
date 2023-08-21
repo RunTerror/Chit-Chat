@@ -2,7 +2,10 @@ import 'package:chit_chat/utils/route_names.dart';
 import 'package:chit_chat/views/camera_screen.dart';
 import 'package:chit_chat/views/chat_room.dart';
 import 'package:chit_chat/views/chat_screen.dart';
+import 'package:chit_chat/views/login_screen.dart';
 import 'package:chit_chat/views/search_screen.dart';
+import 'package:chit_chat/views/signup_screen.dart';
+import 'package:chit_chat/views/verification_screen.dart';
 import 'package:flutter/material.dart';
 import '../views/chit_chat_screen.dart';
 import '../views/landing_screen.dart';
@@ -22,7 +25,13 @@ class Routes {
        case RouteNames.chatScreen:
        return MaterialPageRoute(builder: (context)=> const ChatScreen());
       case RouteNames.searchScreen:
-       return MaterialPageRoute(builder: (context)=> const searchScreen());
+       return MaterialPageRoute(builder: (context)=> const SearchScreen());
+      case RouteNames.loginScreen:
+       return MaterialPageRoute(builder: (context)=> const LoginScreen());
+      case RouteNames.signupScreen:
+       return MaterialPageRoute(builder: (context)=> const SignUpScreen());
+      case RouteNames.verificationScreen:
+       return MaterialPageRoute(builder: (context)=> const VerificationScreen());
       default:
       return MaterialPageRoute(builder: (context)=> const Scaffold(body: Text("No valid routes"),));
     }

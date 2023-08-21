@@ -73,7 +73,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                         controller: _passwordController,
                         hintText: ConstantString.password,
                         iconData:value.obscureText? Icons.lock: Icons.lock_open,
-                        suffixIcon: CupertinoIcons.eye,
+                        suffixIcon: value.obscureText? CupertinoIcons.eye: CupertinoIcons.eye_slash,
                         function: () {
                           value.toggleObscure();
                         },
@@ -85,7 +85,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                   ),
                   InkWell(
                     onTap: () {
-                       Navigator.pushReplacementNamed(context, RouteNames.chitScreen);
+                       Navigator.pushNamedAndRemoveUntil(context, RouteNames.chitScreen, ModalRoute.withName(RouteNames.homeScreen));
                     },
                     child: CustomContainer(
                         borderRadius: 20,

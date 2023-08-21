@@ -65,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         controller: _passwordController,
                         hintText: ConstantString.password,
                         iconData: value.obscureText? Icons.lock: Icons.lock_open,
-                        suffixIcon: CupertinoIcons.eye,
+                        suffixIcon:value.obscureText?CupertinoIcons.eye_slash: CupertinoIcons.eye,
                         function: () {
                           value.toggleObscure();
                         },

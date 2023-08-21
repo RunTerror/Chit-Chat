@@ -1,7 +1,6 @@
 import 'package:chit_chat/view_model/landing_controller.dart';
 import 'package:chit_chat/views/call_screen.dart';
 import 'package:chit_chat/views/chat_screen.dart';
-import 'package:chit_chat/views/profile_screen.dart';
 import 'package:chit_chat/views/status_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

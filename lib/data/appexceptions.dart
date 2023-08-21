@@ -1,9 +1,10 @@
 class AppExceptions implements Exception {
 
-  final _message;
-  final _prefix;
+  final String? _message;
+  final String? _prefix;
   AppExceptions([this._message, this._prefix]);
 
+  @override
   String toString(){
     return '$_message$_prefix';
   }

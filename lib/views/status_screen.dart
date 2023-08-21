@@ -1,4 +1,3 @@
-import 'package:chit_chat/components/box.dart';
 import 'package:flutter/material.dart';
 
 class StatusScreen extends StatelessWidget {

@@ -20,4 +20,9 @@ class ErrorMessage {
         fontSize: 16.0
     );
   }
+
+  static focusnode(BuildContext context, FocusNode currentnode, FocusNode nextnode){
+    currentnode.unfocus();
+    FocusScope.of(context).requestFocus(nextnode);
+  }
 }

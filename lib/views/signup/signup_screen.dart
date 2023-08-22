@@ -1,6 +1,7 @@
 import 'package:chit_chat/components/box.dart';
 import 'package:chit_chat/components/constant_string.dart';
 import 'package:chit_chat/components/customtextfield.dart';
+import 'package:chit_chat/utils/error_widget.dart';
 import 'package:chit_chat/utils/route_names.dart';
 import 'package:chit_chat/view_model/obscure_controller.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,6 +17,9 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class SignUpScreenState extends State<SignUpScreen> {
+   FocusNode numberNode=FocusNode();
+    FocusNode passwordNode=FocusNode();
+    FocusNode nameNode=FocusNode();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneConroller = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -52,6 +56,8 @@ class SignUpScreenState extends State<SignUpScreen> {
               child: ListView(
                 children: [
                   CustomTextField(
+                    nextnode: numberNode,
+                    focusNode: nameNode,
                       controller: _nameController,
                       hintText: ConstantString.name,
                       iconData: CupertinoIcons.person),
@@ -59,6 +65,8 @@ class SignUpScreenState extends State<SignUpScreen> {
                     height: 20,
                   ),
                   CustomTextField(
+                     nextnode: passwordNode,
+                    focusNode: numberNode,
                      textInputType: TextInputType.number,
                       controller: _phoneConroller,
                       hintText: ConstantString.phone,
@@ -69,11 +77,13 @@ class SignUpScreenState extends State<SignUpScreen> {
                   Consumer<ObscureController>(
                     builder: (context, value, child) {
                       return CustomTextField(
+                        nextnode: null,
+                        focusNode: passwordNode,
                         obscureText: value.obscureText,
                         controller: _passwordController,
                         hintText: ConstantString.password,
                         iconData:value.obscureText? Icons.lock: Icons.lock_open,
-                        suffixIcon: value.obscureText? CupertinoIcons.eye: CupertinoIcons.eye_slash,
+                        suffixIcon: value.obscureText? CupertinoIcons.eye_slash: CupertinoIcons.eye,
                         function: () {
                           value.toggleObscure();
                         },
@@ -85,6 +95,12 @@ class SignUpScreenState extends State<SignUpScreen> {
                   ),
                   InkWell(
                     onTap: () {
+                       if(_phoneConroller.text.length<10){
+
+                       }
+                       else{
+                        
+                       }
                        Navigator.pushNamedAndRemoveUntil(context, RouteNames.chitScreen, ModalRoute.withName(RouteNames.homeScreen));
                     },
                     child: CustomContainer(

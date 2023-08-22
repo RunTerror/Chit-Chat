@@ -1,6 +1,7 @@
 import 'package:chit_chat/components/box.dart';
 import 'package:chit_chat/components/constant_string.dart';
 import 'package:chit_chat/components/customtextfield.dart';
+import 'package:chit_chat/utils/error_widget.dart';
 import 'package:chit_chat/utils/route_names.dart';
 import 'package:chit_chat/view_model/obscure_controller.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,9 +20,11 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _phoneConroller = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   var obscuretext = true;
-
+  FocusNode numberNode=FocusNode();
+    FocusNode passwordNode=FocusNode();
   @override
   Widget build(BuildContext context) {
+    
     var theme = Theme.of(context);
     var w = MediaQuery.of(context).size.width;
     var h = MediaQuery.of(context).size.height;
@@ -51,6 +54,8 @@ class _LoginScreenState extends State<LoginScreen> {
               child: ListView(
                 children: [
                   CustomTextField(
+                    nextnode: passwordNode,
+                    focusNode: numberNode,
                      textInputType: TextInputType.number,
                       controller: _phoneConroller,
                       hintText: ConstantString.phone,
@@ -61,11 +66,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   Consumer<ObscureController>(
                     builder: (context, value, child) {
                       return CustomTextField(
+                        focusNode: passwordNode,
+                        nextnode: null,
                         obscureText: value.obscureText,
                         controller: _passwordController,
                         hintText: ConstantString.password,
                         iconData: value.obscureText? Icons.lock: Icons.lock_open,
-                        suffixIcon:value.obscureText?CupertinoIcons.eye_slash: CupertinoIcons.eye,
+                        suffixIcon:value.obscureText?CupertinoIcons.eye: CupertinoIcons.eye_slash,
                         function: () {
                           value.toggleObscure();
                         },

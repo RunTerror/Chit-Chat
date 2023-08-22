@@ -76,7 +76,11 @@ class _VerificationScreen extends State<VerificationScreen> {
                     const SizedBox(height: 10,),
                     Text(ConstantString.bottomVerificationString, style: GoogleFonts.openSans(fontWeight: FontWeight.w600),),
                     const SizedBox(height: 5,),
-                    InkWell(onTap:(){},child:Text(ConstantString.verificationButton, style: GoogleFonts.openSans(fontWeight: FontWeight.w700,color: theme.primaryColor),), )
+                    InkWell(onTap:(){
+                      setState(() {
+                        
+                      });
+                    },child:Text(ConstantString.verificationButton, style: GoogleFonts.openSans(fontWeight: FontWeight.w700,color: theme.primaryColor),), )
               ]),
             ))
       ]),

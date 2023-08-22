@@ -21,6 +21,8 @@ class _ChitChatScreenState extends State<ChitChatScreen> {
   final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    print('rebuild');
+    FocusNode searchfocusnode=FocusNode();
     final theme = Theme.of(context);
     var w = MediaQuery.of(context).size.width;
     var h = MediaQuery.of(context).size.height;
@@ -47,7 +49,15 @@ class _ChitChatScreenState extends State<ChitChatScreen> {
                     actions: [
                       IconButton(
                           onPressed: () {
-                            value.toogleCheck();
+                            if(value.check){
+                              value.toogleCheck();
+                               FocusScope.of(context).requestFocus(searchfocusnode);
+                            }
+                            else{
+                              FocusScope.of(context).unfocus();
+                              value.toogleCheck();
+                            }
+                            
                           },
                           icon: const Icon(
                             CupertinoIcons.search,
@@ -76,6 +86,7 @@ class _ChitChatScreenState extends State<ChitChatScreen> {
                                     color: Colors.white)),
                           )
                         : TextField(
+                          focusNode: searchfocusnode,
                             controller: _controller,
                             decoration: InputDecoration(
                                 border: InputBorder.none,

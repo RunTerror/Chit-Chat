@@ -1,8 +1,9 @@
-import 'package:chit_chat/components/box.dart';
-import 'package:chit_chat/components/constant_string.dart';
-import 'package:chit_chat/components/customtextfield.dart';
-import 'package:chit_chat/utils/error_widget.dart';
+import 'package:chit_chat/res/components/box.dart';
+import 'package:chit_chat/res/components/constant_string.dart';
+import 'package:chit_chat/res/components/customtextfield.dart';
+import 'package:chit_chat/utils/utils.dart';
 import 'package:chit_chat/utils/route_names.dart';
+import 'package:chit_chat/view_model/auth_view_model.dart';
 import 'package:chit_chat/view_model/obscure_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,8 @@ class SignUpScreenState extends State<SignUpScreen> {
     var theme = Theme.of(context);
     var w = MediaQuery.of(context).size.width;
     var h = MediaQuery.of(context).size.height;
+    final authviewmodel= Provider.of<AuthViewModel>(context);
+
     return Scaffold(
       body: Stack(children: [
         CustomContainer(
@@ -94,14 +97,26 @@ class SignUpScreenState extends State<SignUpScreen> {
                     height: 20,
                   ),
                   InkWell(
-                    onTap: () {
-                       if(_phoneConroller.text.length<10){
-
+                    onTap: () async{
+                      if(_nameController.text.isEmpty){
+                        Utils.showFlushbar(context, "Enter name!");
+                      }
+                      else  if(_phoneConroller.text.length<10){
+                        Utils.showFlushbar(context, "Enter 10 digit phone number");
+                       }
+                       else if(_passwordController.text.length<6){
+                        Utils.showFlushbar(context, "Enter at least 6 digit password");
                        }
                        else{
+                        Map<String, dynamic> data={
+                          "name": _nameController.text.trim().toString(),
+                          "number": _phoneConroller.text.trim().toString(),
+                          "password": _passwordController.text.trim().toString()
+                        };
+                        await authviewmodel.signupApi(data);
                         
                        }
-                       Navigator.pushNamedAndRemoveUntil(context, RouteNames.chitScreen, ModalRoute.withName(RouteNames.homeScreen));
+                      
                     },
                     child: CustomContainer(
                         borderRadius: 20,

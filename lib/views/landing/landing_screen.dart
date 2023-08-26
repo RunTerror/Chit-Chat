@@ -1,10 +1,10 @@
 import 'package:action_slider/action_slider.dart';
-import 'package:chit_chat/components/box.dart';
+import 'package:chit_chat/res/components/box.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../utils/route_names.dart';
+import '../../utils/route_names.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});

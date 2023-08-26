@@ -1,7 +1,7 @@
 import 'package:chit_chat/view_model/landing_controller.dart';
-import 'package:chit_chat/views/call_screen.dart';
-import 'package:chit_chat/views/chat_screen.dart';
-import 'package:chit_chat/views/status_screen.dart';
+import 'package:chit_chat/views/home/call_screen.dart';
+import 'package:chit_chat/views/home/chat_screen.dart';
+import 'package:chit_chat/views/home/status_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -70,7 +70,11 @@ class _ChitChatScreenState extends State<ChitChatScreen> {
                             color: Colors.white,
                           )),
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            PopupMenuButton(itemBuilder: (context) {
+                              return List.filled(4,const PopupMenuItem(child: Text("Hello"),));
+                            },);
+                          },
                           icon: const Icon(
                             Icons.more_vert,
                             color: Colors.white,

@@ -1,5 +1,5 @@
-import 'package:chit_chat/components/box.dart';
-import 'package:chit_chat/components/constant_string.dart';
+import 'package:chit_chat/res/components/box.dart';
+import 'package:chit_chat/res/components/constant_string.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';

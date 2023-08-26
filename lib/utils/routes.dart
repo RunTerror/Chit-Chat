@@ -1,14 +1,14 @@
 import 'package:chit_chat/utils/route_names.dart';
-import 'package:chit_chat/views/camera_screen.dart';
-import 'package:chit_chat/views/chat_room.dart';
-import 'package:chit_chat/views/chat_screen.dart';
-import 'package:chit_chat/views/login_screen.dart';
-import 'package:chit_chat/views/search_screen.dart';
-import 'package:chit_chat/views/signup_screen.dart';
-import 'package:chit_chat/views/verification_screen.dart';
+import 'package:chit_chat/views/home/camera_screen.dart';
+import 'package:chit_chat/views/home/chat_room.dart';
+import 'package:chit_chat/views/home/chat_screen.dart';
+import 'package:chit_chat/views/login/login_screen.dart';
+import 'package:chit_chat/views/home/search_screen.dart';
+import 'package:chit_chat/views/signup/signup_screen.dart';
+import 'package:chit_chat/views/verification/verification_screen.dart';
 import 'package:flutter/material.dart';
-import '../views/chit_chat_screen.dart';
-import '../views/landing_screen.dart';
+import '../views/home/chit_chat_screen.dart';
+import '../views/landing/landing_screen.dart';
 
 class Routes {
 

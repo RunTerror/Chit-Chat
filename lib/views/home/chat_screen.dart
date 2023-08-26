@@ -1,4 +1,4 @@
-import 'package:chit_chat/components/box.dart';
+import 'package:chit_chat/res/components/box.dart';
 import 'package:chit_chat/utils/route_names.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -1,7 +1,7 @@
-import 'package:chit_chat/components/box.dart';
-import 'package:chit_chat/components/constant_string.dart';
-import 'package:chit_chat/components/customtextfield.dart';
-import 'package:chit_chat/utils/error_widget.dart';
+import 'package:chit_chat/res/components/box.dart';
+import 'package:chit_chat/res/components/constant_string.dart';
+import 'package:chit_chat/res/components/customtextfield.dart';
+import 'package:chit_chat/utils/utils.dart';
 import 'package:chit_chat/utils/route_names.dart';
 import 'package:chit_chat/view_model/obscure_controller.dart';
 import 'package:flutter/cupertino.dart';

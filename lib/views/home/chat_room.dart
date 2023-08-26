@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:chit_chat/components/bottom_sheet.dart';
+import 'package:chit_chat/res/components/bottom_sheet.dart';
 import 'package:chit_chat/utils/route_names.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/cupertino.dart';

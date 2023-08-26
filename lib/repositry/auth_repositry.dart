@@ -1,5 +1,6 @@
 import 'package:chit_chat/data/Network/baseapiservices.dart';
 import 'package:chit_chat/data/Network/networkapiservices.dart';
+import 'package:chit_chat/res/app_url.dart';
 
 class AuthRepositry {
 
@@ -7,7 +8,7 @@ class AuthRepositry {
 
   Future<dynamic> loginApi(dynamic data)async{
     try {
-      dynamic response=_apiService.getPostApiResponse(AppUrl, data);
+      dynamic response=_apiService.getPostApiResponse(AppUrl.loginUrl, data);
       return response;
       
     } catch (e) {
@@ -18,7 +19,7 @@ class AuthRepositry {
 
     Future<dynamic> signUpApi(dynamic data)async{
     try {
-      dynamic response=_apiService.getPostApiResponse(AppUrl, data);
+      dynamic response=_apiService.getPostApiResponse(AppUrl.signupUrl, data);
       
     } catch (e) {
       throw e;

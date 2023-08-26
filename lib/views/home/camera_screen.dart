@@ -1,8 +1,8 @@
 import 'package:camera/camera.dart';
-import 'package:chit_chat/utils/error_widget.dart';
+import 'package:chit_chat/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../main.dart';
+import '../../main.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({super.key});
@@ -58,7 +58,7 @@ class _CameraScreenState extends State<CameraScreen>
     try {
       await newCameraController.initialize();
     } catch (e) {
-      ErrorMessage.showtoast(e as String);
+      Utils.showtoast(e as String);
     }
     newCameraController
         .getMaxZoomLevel()

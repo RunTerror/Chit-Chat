@@ -36,6 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
             color: theme.primaryColor,
             h: h,
             w: w),
+            Positioned(bottom: h/1.6, child: Image.asset('assets/images/monkey_1998721.png',height: 200,width: w,)),
         Positioned(
             top: h - h / 1.4,
             child: Container(

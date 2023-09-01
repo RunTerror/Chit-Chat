@@ -8,6 +8,8 @@ import 'package:chit_chat/view_model/obscure_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -18,9 +20,9 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class SignUpScreenState extends State<SignUpScreen> {
-   FocusNode numberNode=FocusNode();
-    FocusNode passwordNode=FocusNode();
-    FocusNode nameNode=FocusNode();
+  FocusNode numberNode = FocusNode();
+  FocusNode passwordNode = FocusNode();
+  FocusNode nameNode = FocusNode();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneConroller = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -31,7 +33,7 @@ class SignUpScreenState extends State<SignUpScreen> {
     var theme = Theme.of(context);
     var w = MediaQuery.of(context).size.width;
     var h = MediaQuery.of(context).size.height;
-    final authviewmodel= Provider.of<AuthViewModel>(context);
+    final authviewmodel = Provider.of<AuthViewModel>(context);
 
     return Scaffold(
       body: Stack(children: [
@@ -41,6 +43,13 @@ class SignUpScreenState extends State<SignUpScreen> {
             color: theme.primaryColor,
             h: h,
             w: w),
+        Positioned(
+            top:h-h/1.6-200,
+            child: Image.asset(
+              'assets/images/monkey_1998721.png',
+              height: 200,
+              width: w,
+            )),
         Positioned(
             top: h - h / 1.4,
             child: Container(
@@ -59,21 +68,29 @@ class SignUpScreenState extends State<SignUpScreen> {
               child: ListView(
                 children: [
                   CustomTextField(
-                    nextnode: numberNode,
-                    focusNode: nameNode,
+                      nextnode: numberNode,
+                      focusNode: nameNode,
                       controller: _nameController,
                       hintText: ConstantString.name,
                       iconData: CupertinoIcons.person),
                   const SizedBox(
                     height: 20,
                   ),
-                  CustomTextField(
-                     nextnode: passwordNode,
-                    focusNode: numberNode,
-                     textInputType: TextInputType.number,
-                      controller: _phoneConroller,
-                      hintText: ConstantString.phone,
-                      iconData: CupertinoIcons.phone),
+                  // Container(width: w, height: h/1.4,decoration: BoxDecoration(color: Colors.transparent,borderRadius: BorderRadius.all(Radius.circular(10))),),
+                  Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1,
+                          ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10))),
+                      child: InternationalPhoneNumberInput(
+
+                        formatInput: true,
+                        inputDecoration:const InputDecoration(border: InputBorder.none),
+                        onInputChanged: (value) {
+                        
+                      },)),
                   const SizedBox(
                     height: 20,
                   ),
@@ -85,8 +102,11 @@ class SignUpScreenState extends State<SignUpScreen> {
                         obscureText: value.obscureText,
                         controller: _passwordController,
                         hintText: ConstantString.password,
-                        iconData:value.obscureText? Icons.lock: Icons.lock_open,
-                        suffixIcon: value.obscureText? CupertinoIcons.eye_slash: CupertinoIcons.eye,
+                        iconData:
+                            value.obscureText ? Icons.lock : Icons.lock_open,
+                        suffixIcon: value.obscureText
+                            ? CupertinoIcons.eye_slash
+                            : CupertinoIcons.eye,
                         function: () {
                           value.toggleObscure();
                         },
@@ -97,26 +117,23 @@ class SignUpScreenState extends State<SignUpScreen> {
                     height: 20,
                   ),
                   InkWell(
-                    onTap: () async{
-                      if(_nameController.text.isEmpty){
+                    onTap: () async {
+                      if (_nameController.text.isEmpty) {
                         Utils.showFlushbar(context, "Enter name!");
-                      }
-                      else  if(_phoneConroller.text.length<10){
-                        Utils.showFlushbar(context, "Enter 10 digit phone number");
-                       }
-                       else if(_passwordController.text.length<6){
-                        Utils.showFlushbar(context, "Enter at least 6 digit password");
-                       }
-                       else{
-                        Map<String, dynamic> data={
+                      } else if (_phoneConroller.text.length < 10) {
+                        Utils.showFlushbar(
+                            context, "Enter 10 digit phone number");
+                      } else if (_passwordController.text.length < 6) {
+                        Utils.showFlushbar(
+                            context, "Enter at least 6 digit password");
+                      } else {
+                        Map<String, dynamic> data = {
                           "name": _nameController.text.trim().toString(),
                           "number": _phoneConroller.text.trim().toString(),
                           "password": _passwordController.text.trim().toString()
                         };
                         await authviewmodel.signupApi(data);
-                        
-                       }
-                      
+                      }
                     },
                     child: CustomContainer(
                         borderRadius: 20,
@@ -133,10 +150,24 @@ class SignUpScreenState extends State<SignUpScreen> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Text(ConstantString.bottomLogInString, style: GoogleFonts.openSans(fontWeight: FontWeight.w600,),), InkWell(onTap: () {
-                      Navigator.of(context).pop();
-                    },child: Text(ConstantString.login, style: GoogleFonts.openSans(fontWeight: FontWeight.w700),),)],
-
+                    children: [
+                      Text(
+                        ConstantString.bottomLogInString,
+                        style: GoogleFonts.openSans(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          ConstantString.login,
+                          style:
+                              GoogleFonts.openSans(fontWeight: FontWeight.w700),
+                        ),
+                      )
+                    ],
                   )
                 ],
               ),

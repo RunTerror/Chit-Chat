@@ -9,6 +9,8 @@ class StatusScreen extends StatelessWidget {
     var w = MediaQuery.of(context).size.width;
     var h = MediaQuery.of(context).size.height;
     
-    return Container();
+    return Container(height: h, width: w, child: Column(children: [
+      
+    ],),);
   }
 }

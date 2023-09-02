@@ -9,4 +9,5 @@ class RouteNames {
   static const loginScreen='login-screen';
   static const signupScreen='signup-screen';
   static const verificationScreen='verification-screen';
+  static const wrapper='wrapper';
 }

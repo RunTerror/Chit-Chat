@@ -1,16 +1,19 @@
+
+import 'dart:convert';
+
+import 'package:chit_chat/res/app_url.dart';
 import 'package:chit_chat/res/components/box.dart';
 import 'package:chit_chat/res/components/constant_string.dart';
 import 'package:chit_chat/res/components/customtextfield.dart';
 import 'package:chit_chat/utils/utils.dart';
-import 'package:chit_chat/utils/route_names.dart';
 import 'package:chit_chat/view_model/auth_view_model.dart';
 import 'package:chit_chat/view_model/obscure_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -27,13 +30,14 @@ class SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _phoneConroller = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   var obscuretext = true;
-
+  bool loading=false;
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     var w = MediaQuery.of(context).size.width;
     var h = MediaQuery.of(context).size.height;
     final authviewmodel = Provider.of<AuthViewModel>(context);
+
 
     return Scaffold(
       body: Stack(children: [
@@ -76,24 +80,34 @@ class SignUpScreenState extends State<SignUpScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  // Container(width: w, height: h/1.4,decoration: BoxDecoration(color: Colors.transparent,borderRadius: BorderRadius.all(Radius.circular(10))),),
-                  Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 1,
-                          ),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10))),
-                      child: InternationalPhoneNumberInput(
-
-                        formatInput: true,
-                        inputDecoration:const InputDecoration(border: InputBorder.none),
-                        onInputChanged: (value) {
-                        
-                      },)),
+                   CustomTextField(
+                      nextnode: passwordNode,
+                      focusNode: numberNode,
+                      controller: _phoneConroller,
+                      hintText: ConstantString.phone,
+                      iconData: CupertinoIcons.phone),
                   const SizedBox(
                     height: 20,
                   ),
+                  
+                  // Container(width: w, height: h/1.4,decoration: BoxDecoration(color: Colors.transparent,borderRadius: BorderRadius.all(Radius.circular(10))),),
+                  // Container(
+                  //     decoration: BoxDecoration(
+                  //         border: Border.all(
+                  //           width: 1,
+                  //         ),
+                  //         borderRadius:
+                  //             const BorderRadius.all(Radius.circular(10))),
+                  //     child: InternationalPhoneNumberInput(
+
+                  //       formatInput: true,
+                  //       inputDecoration:const InputDecoration(border: InputBorder.none),
+                  //       onInputChanged: (value) {
+                        
+                  //     },)),
+                  // const SizedBox(
+                  //   height: 20,
+                  // ),
                   Consumer<ObscureController>(
                     builder: (context, value, child) {
                       return CustomTextField(
@@ -120,19 +134,17 @@ class SignUpScreenState extends State<SignUpScreen> {
                     onTap: () async {
                       if (_nameController.text.isEmpty) {
                         Utils.showFlushbar(context, "Enter name!");
-                      } else if (_phoneConroller.text.length < 10) {
-                        Utils.showFlushbar(
-                            context, "Enter 10 digit phone number");
                       } else if (_passwordController.text.length < 6) {
                         Utils.showFlushbar(
                             context, "Enter at least 6 digit password");
                       } else {
+                        var number='+91 ${_phoneConroller.text.trim().toString()}';
                         Map<String, dynamic> data = {
-                          "name": _nameController.text.trim().toString(),
-                          "number": _phoneConroller.text.trim().toString(),
-                          "password": _passwordController.text.trim().toString()
+                          "name": _nameController.text.trim(),
+                          "number": number,
+                          "password": _passwordController.text.trim()
                         };
-                        await authviewmodel.signupApi(data);
+                       authviewmodel.signupApi(data, context);
                       }
                     },
                     child: CustomContainer(
@@ -140,10 +152,10 @@ class SignUpScreenState extends State<SignUpScreen> {
                         color: theme.primaryColor,
                         h: h / 15,
                         w: w,
-                        child: Text(
+                        child:authviewmodel.loading==false? Text(
                           ConstantString.signup,
                           style: GoogleFonts.openSans(color: Colors.white),
-                        )),
+                        ):const CircularProgressIndicator(color: Colors.white,)),
                   ),
                   const SizedBox(
                     height: 20,

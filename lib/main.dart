@@ -5,6 +5,7 @@ import 'package:chit_chat/utils/routes.dart';
 import 'package:chit_chat/view_model/auth_view_model.dart';
 import 'package:chit_chat/view_model/landing_controller.dart';
 import 'package:chit_chat/view_model/obscure_controller.dart';
+import 'package:chit_chat/view_model/user_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,8 +29,10 @@ class MyApp extends StatelessWidget {
     return MultiProvider(providers: [
       ChangeNotifierProvider(create: (context)=> AuthViewModel()),
       ChangeNotifierProvider(create: (context)=> ObscureController()),
-      ChangeNotifierProvider(create: (context)=> LandingProvider())
-    ], child: MaterialApp(
+      ChangeNotifierProvider(create: (context)=> LandingProvider()),
+      ChangeNotifierProvider(create: (context)=> UserViewModel())
+    ], child:Builder(builder: (context) {
+      return  MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         listTileTheme:const ListTileThemeData(tileColor: Colors.white),
@@ -37,8 +40,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         useMaterial3: true,
       ),
-      initialRoute: RouteNames.landingScreen,
+      initialRoute: RouteNames.wrapper,
       onGenerateRoute: Routes.generateRoute,
-    ));
+    );
+    },));
   }
 }

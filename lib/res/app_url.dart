@@ -1,8 +1,5 @@
 class AppUrl {
-  static String baseUrl='';
-  static String loginUrl='$baseUrl/login';
-  static String signupUrl='$baseUrl/signup';
-  static String sendverification='$baseUrl/verify';
-  static String verification='$baseUrl/verification';
-  
+  static String baseUrl='https://basket-clam-trunks.cyclic.cloud';
+  static String loginUrl='$baseUrl/user/signin';
+  static String signupUrl='$baseUrl/user/signup';
 }

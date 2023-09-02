@@ -1,4 +1,5 @@
 import 'package:chit_chat/utils/route_names.dart';
+import 'package:chit_chat/view_model/wrapper.dart';
 import 'package:chit_chat/views/home/camera_screen.dart';
 import 'package:chit_chat/views/home/chat_room.dart';
 import 'package:chit_chat/views/home/chat_screen.dart';
@@ -32,6 +33,8 @@ class Routes {
        return MaterialPageRoute(builder: (context)=> const SignUpScreen());
       case RouteNames.verificationScreen:
        return MaterialPageRoute(builder: (context)=> const VerificationScreen());
+        case RouteNames.wrapper:
+       return MaterialPageRoute(builder: (context)=> const Wrapper());
       default:
       return MaterialPageRoute(builder: (context)=> const Scaffold(body: Text("No valid routes"),));
     }

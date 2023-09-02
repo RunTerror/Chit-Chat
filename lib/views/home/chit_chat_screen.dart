@@ -1,4 +1,6 @@
+import 'package:chit_chat/utils/route_names.dart';
 import 'package:chit_chat/view_model/landing_controller.dart';
+import 'package:chit_chat/view_model/user_viewmodel.dart';
 import 'package:chit_chat/views/home/call_screen.dart';
 import 'package:chit_chat/views/home/chat_screen.dart';
 import 'package:chit_chat/views/home/status_screen.dart';
@@ -21,11 +23,12 @@ class _ChitChatScreenState extends State<ChitChatScreen> {
   final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    print('rebuild');
     FocusNode searchfocusnode=FocusNode();
     final theme = Theme.of(context);
     var w = MediaQuery.of(context).size.width;
     var h = MediaQuery.of(context).size.height;
+    final userprovider=Provider.of<UserViewModel>(context);
+
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -57,26 +60,28 @@ class _ChitChatScreenState extends State<ChitChatScreen> {
                               FocusScope.of(context).unfocus();
                               value.toogleCheck();
                             }
-                            
                           },
                           icon: const Icon(
                             CupertinoIcons.search,
                             color: Colors.white,
                           )),
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, RouteNames.cameraScreen);
+                          },
                           icon: const Icon(
                             CupertinoIcons.camera,
                             color: Colors.white,
                           )),
                       IconButton(
-                          onPressed: () {
-                            PopupMenuButton(itemBuilder: (context) {
-                              return List.filled(4,const PopupMenuItem(child: Text("Hello"),));
-                            },);
+                          onPressed: ()async {
+                            Navigator.pushNamedAndRemoveUntil(context, RouteNames.loginScreen, (route) => false);
+                            userprovider.remove();
+                            
                           },
                           icon: const Icon(
-                            Icons.more_vert,
+                            Icons.logout,
+                            
                             color: Colors.white,
                           )),
                     ],

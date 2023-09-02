@@ -1,30 +1,27 @@
-import 'package:chit_chat/data/Network/baseapiservices.dart';
 import 'package:chit_chat/data/Network/networkapiservices.dart';
 import 'package:chit_chat/res/app_url.dart';
+import 'package:flutter/cupertino.dart';
 
 class AuthRepositry {
+  final _apiService = NetworkApiService();
 
-  final BaseApiService _apiService=NetworkApiService();
-
-  Future<dynamic> loginApi(dynamic data)async{
+  Future<dynamic> loginApi(dynamic data) async {
     try {
-      dynamic response=_apiService.getPostApiResponse(AppUrl.loginUrl, data);
+      dynamic response =
+          await _apiService.getPostApiResponse(AppUrl.loginUrl, data);
       return response;
-      
     } catch (e) {
-      throw e;
-      
+      // rethrow;
     }
   }
 
-    Future<dynamic> signUpApi(dynamic data)async{
+  Future<dynamic> signUpApi(dynamic data, BuildContext context) async {
     try {
-      dynamic response=_apiService.getPostApiResponse(AppUrl.signupUrl, data);
-      
+      dynamic response =
+          await _apiService.getPostApiResponse(AppUrl.signupUrl, data);
+      return response;
     } catch (e) {
-      throw e;
-      
+        // Utils.showFlushbar(context, e.toString());
     }
   }
-  
 }
